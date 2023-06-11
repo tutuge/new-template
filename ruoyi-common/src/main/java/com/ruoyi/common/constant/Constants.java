@@ -94,5 +94,12 @@ public interface Constants {
      * 定时任务白名单配置（仅允许访问的包名，如其他需要可以自行添加）
      */
     String[] JOB_WHITELIST_STR = {"com.ruoyi"};
+
+
+    /**
+     * 资源映射路径 前缀
+     */
+    String RESOURCE_PREFIX = "/profile";
+
 }
 

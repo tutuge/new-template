@@ -1,11 +1,14 @@
 package com.ruoyi.common.utils.file;
 
 import cn.hutool.core.io.FileUtil;
+import com.ruoyi.common.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -28,11 +31,11 @@ public class FileUtils extends FileUtil {
 
         StringBuilder contentDispositionValue = new StringBuilder();
         contentDispositionValue.append("attachment; filename=")
-            .append(percentEncodedFileName)
-            .append(";")
-            .append("filename*=")
-            .append("utf-8''")
-            .append(percentEncodedFileName);
+                .append(percentEncodedFileName)
+                .append(";")
+                .append("filename*=")
+                .append("utf-8''")
+                .append(percentEncodedFileName);
 
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition,download-filename");
         response.setHeader("Content-disposition", contentDispositionValue.toString());
@@ -48,5 +51,70 @@ public class FileUtils extends FileUtil {
     public static String percentEncode(String s) throws UnsupportedEncodingException {
         String encode = URLEncoder.encode(s, StandardCharsets.UTF_8.toString());
         return encode.replaceAll("\\+", "%20");
+    }
+
+    /**
+     * 检查文件是否可下载
+     *
+     * @param resource 需要下载的文件
+     * @return true 正常 false 非法
+     */
+    public static boolean checkAllowDownload(String resource) {
+        // 禁止目录上跳级别
+        if (StringUtils.contains(resource, "..")) {
+            return false;
+        }
+
+        // 检查允许下载的文件规则
+        if (ArrayUtils.contains(MimeTypeUtils.DEFAULT_ALLOWED_EXTENSION, FileTypeUtils.getFileType(resource))) {
+            return true;
+        }
+
+        // 不在允许下载的文件规则
+        return false;
+    }
+
+    /**
+     * 输出指定文件的byte数组
+     *
+     * @param filePath 文件路径
+     * @param os       输出流
+     * @return
+     */
+    public static void writeBytes(String filePath, OutputStream os) throws IOException {
+        FileInputStream fis = null;
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                throw new FileNotFoundException(filePath);
+            }
+            fis = new FileInputStream(file);
+            byte[] b = new byte[1024];
+            int length;
+            while ((length = fis.read(b)) > 0) {
+                os.write(b, 0, length);
+            }
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            IOUtils.close(os);
+            IOUtils.close(fis);
+        }
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param filePath 文件
+     * @return
+     */
+    public static boolean deleteFile(String filePath) {
+        boolean flag = false;
+        File file = new File(filePath);
+        // 路径为文件且不为空则进行删除
+        if (file.isFile() && file.exists()) {
+            flag = file.delete();
+        }
+        return flag;
     }
 }

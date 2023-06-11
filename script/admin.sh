@@ -11,7 +11,7 @@ do
     then
     echo ">>>telegram is stop,to start"
     #启动进程
-    nohup java -Dspring.profiles.active=prod -Dthread-pool.enabled=true -Dserver.port=28080  -jar    -Xms512m -Xmx512m /home/jar/ruoyi-admin.jar >/dev/null 2>&1 &
+    nohup java -Dspring.profiles.active=prod -Dthread-pool.enabled=true -Dserver.port=8080  -jar    -Xms512m -Xmx512m /home/jar/ruoyi-admin.jar >/dev/null 2>&1 &
     
     break
     else

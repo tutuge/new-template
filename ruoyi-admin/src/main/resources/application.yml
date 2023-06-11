@@ -12,6 +12,8 @@ ruoyi:
   addressEnabled: true
   # 缓存懒加载
   cacheLazy: false
+  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
+  profile: D:/ruoyi/uploadPath
 
 captcha:
   # 页面 <参数设置> 可开启关闭 验证码校验

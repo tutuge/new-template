@@ -1,18 +1,18 @@
 <template>
   <div class="upload-file">
     <el-upload
-      multiple
-      :action="uploadFileUrl"
-      :before-upload="handleBeforeUpload"
-      :file-list="fileList"
-      :limit="limit"
-      :on-error="handleUploadError"
-      :on-exceed="handleExceed"
-      :on-success="handleUploadSuccess"
-      :show-file-list="false"
-      :headers="headers"
-      class="upload-file-uploader"
-      ref="fileUpload"
+        multiple
+        :action="uploadFileUrl"
+        :before-upload="handleBeforeUpload"
+        :file-list="fileList"
+        :limit="limit"
+        :on-error="handleUploadError"
+        :on-exceed="handleExceed"
+        :on-success="handleUploadSuccess"
+        :show-file-list="false"
+        :headers="headers"
+        class="upload-file-uploader"
+        ref="fileUpload"
     >
       <!-- 上传按钮 -->
       <el-button type="primary">选取文件</el-button>
@@ -20,8 +20,8 @@
     <!-- 上传提示 -->
     <div class="el-upload__tip" v-if="showTip">
       请上传
-      <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
-      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
+      <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b></template>
+      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b></template>
       的文件
     </div>
     <!-- 文件列表 -->
@@ -39,8 +39,9 @@
 </template>
 
 <script setup>
-import { getToken } from "@/utils/auth";
-import { listByIds, delOss } from "@/api/system/oss";
+import {getToken} from "@/utils/auth";
+import {delOss, listByIds} from "@/api/system/oss";
+import {computed, getCurrentInstance, ref, watch} from "vue";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
@@ -66,16 +67,16 @@ const props = defineProps({
   }
 });
 
-const { proxy } = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 const emit = defineEmits();
 const number = ref(0);
 const uploadList = ref([]);
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
-const uploadFileUrl = ref(baseUrl + "/system/oss/upload"); // 上传文件服务器地址
-const headers = ref({ Authorization: "Bearer " + getToken() });
+const uploadFileUrl = ref(baseUrl + "/common/upload"); // 上传文件服务器地址
+const headers = ref({Authorization: "Bearer " + getToken()});
 const fileList = ref([]);
 const showTip = computed(
-  () => props.isShowTip && (props.fileType || props.fileSize)
+    () => props.isShowTip && (props.fileType || props.fileSize)
 );
 
 watch(() => props.modelValue, async val => {
@@ -88,7 +89,7 @@ watch(() => props.modelValue, async val => {
     } else {
       await listByIds(val).then(res => {
         list = res.data.map(oss => {
-          oss = { name: oss.originalName, url: oss.url, ossId: oss.ossId };
+          oss = {name: oss.originalName, url: oss.url, ossId: oss.ossId};
           return oss;
         });
       })
@@ -103,7 +104,7 @@ watch(() => props.modelValue, async val => {
     fileList.value = [];
     return [];
   }
-},{ deep: true, immediate: true });
+}, {deep: true, immediate: true});
 
 // 上传前校检格式和大小
 function handleBeforeUpload(file) {
@@ -143,7 +144,7 @@ function handleUploadError(err) {
 // 上传成功回调
 function handleUploadSuccess(res, file) {
   if (res.code === 200) {
-    uploadList.value.push({ name: res.data.fileName, url: res.data.url, ossId: res.data.ossId });
+    uploadList.value.push({name: res.data.fileName, url: res.data.url, ossId: res.data.ossId});
     uploadedSuccessfully();
   } else {
     number.value--;
@@ -188,11 +189,11 @@ function listToString(list, separator) {
   let strs = "";
   separator = separator || ",";
   for (let i in list) {
-    if(list[i].ossId) {
+    if (list[i].ossId) {
       strs += list[i].ossId + separator;
     }
   }
-  return strs != "" ? strs.substr(0, strs.length - 1) : "";
+  return strs !== "" ? strs.substr(0, strs.length - 1) : "";
 }
 </script>
 
@@ -200,18 +201,21 @@ function listToString(list, separator) {
 .upload-file-uploader {
   margin-bottom: 5px;
 }
+
 .upload-file-list .el-upload-list__item {
   border: 1px solid #e4e7ed;
   line-height: 2;
   margin-bottom: 10px;
   position: relative;
 }
+
 .upload-file-list .ele-upload-list__item-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: inherit;
 }
+
 .ele-upload-list__item-content-action .el-link {
   margin-right: 10px;
 }

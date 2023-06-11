@@ -41,6 +41,12 @@ public class RuoYiConfig {
      */
     private boolean cacheLazy;
 
+
+    /**
+     * 上传路径
+     */
+    private static String profile;
+
     /**
      * 获取地址开关
      */
@@ -51,4 +57,22 @@ public class RuoYiConfig {
         RuoYiConfig.addressEnabled = addressEnabled;
     }
 
+
+    public static String getProfile() {
+        return profile;
+    }
+
+    /**
+     * 获取下载路径
+     */
+    public static String getDownloadPath() {
+        return getProfile() + "/download/";
+    }
+
+    /**
+     * 获取上传路径
+     */
+    public static String getUploadPath() {
+        return getProfile() + "/upload";
+    }
 }
