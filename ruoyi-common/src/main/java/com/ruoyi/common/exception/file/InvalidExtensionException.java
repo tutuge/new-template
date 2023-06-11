@@ -1,6 +1,5 @@
 package com.ruoyi.common.exception.file;
 
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
 
 import java.util.Arrays;
 

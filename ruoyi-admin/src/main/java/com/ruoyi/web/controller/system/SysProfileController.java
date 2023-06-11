@@ -3,15 +3,15 @@ package com.ruoyi.web.controller.system;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.io.FileUtil;
 import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.R;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.helper.LoginHelper;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.common.utils.file.MimeTypeUtils;
-import com.ruoyi.oss.domain.vo.SysOssVo;
-import com.ruoyi.oss.service.ISysOssService;
 import com.ruoyi.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -35,7 +35,6 @@ import java.util.Map;
 public class SysProfileController extends BaseController {
 
     private final ISysUserService userService;
-    private final ISysOssService iSysOssService;
 
     /**
      * 个人信息
@@ -105,15 +104,17 @@ public class SysProfileController extends BaseController {
      */
     @Log(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping(value = "/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public R<Map<String, Object>> avatar(@RequestPart("avatarfile") MultipartFile avatarfile) {
+    public R<Map<String, Object>> avatar(@RequestPart("avatarfile") MultipartFile avatarfile) throws Exception {
         Map<String, Object> ajax = new HashMap<>();
         if (!avatarfile.isEmpty()) {
             String extension = FileUtil.extName(avatarfile.getOriginalFilename());
             if (!StringUtils.equalsAnyIgnoreCase(extension, MimeTypeUtils.IMAGE_EXTENSION)) {
                 return R.fail("文件格式不正确，请上传" + Arrays.toString(MimeTypeUtils.IMAGE_EXTENSION) + "格式");
             }
-            SysOssVo oss = iSysOssService.upload(avatarfile);
-            String avatar = oss.getUrl();
+//            SysOssVo oss = iSysOssService.upload(avatarfile);
+            String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), avatarfile, MimeTypeUtils.IMAGE_EXTENSION);
+
+//            String avatar = oss.getUrl();
             if (userService.updateUserAvatar(getUsername(), avatar)) {
                 ajax.put("imgUrl", avatar);
                 return R.ok(ajax);

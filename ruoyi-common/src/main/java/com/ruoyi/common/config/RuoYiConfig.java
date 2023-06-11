@@ -63,6 +63,13 @@ public class RuoYiConfig {
     }
 
     /**
+     * 获取头像上传路径
+     */
+    public static String getAvatarPath() {
+        return getProfile() + "/avatar";
+    }
+
+    /**
      * 获取下载路径
      */
     public static String getDownloadPath() {
