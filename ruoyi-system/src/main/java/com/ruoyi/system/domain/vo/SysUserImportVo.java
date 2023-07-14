@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 用户对象导入VO
  *
- * @author none
+ * @author Lion Li
  */
 
 @Data

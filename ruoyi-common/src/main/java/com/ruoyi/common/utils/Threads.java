@@ -65,13 +65,11 @@ public class Threads {
             } catch (ExecutionException ee) {
                 t = ee.getCause();
             } catch (InterruptedException ie) {
-                ie.printStackTrace();
                 Thread.currentThread().interrupt();
             }
         }
         if (t != null) {
             log.error(t.getMessage(), t);
-            t.printStackTrace();
         }
     }
 }

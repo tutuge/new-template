@@ -59,16 +59,18 @@
     <el-form-item>
       <el-radio v-model='radioValue' :label="6">
         指定
-        <el-select class="multiselect" clearable v-model="checkboxList" placeholder="可多选" multiple :multiple-limit="6">
-          <el-option v-for="item in weekList" :key="item.key" :label="item.value" :value="item.key" />
-        </el-select>
       </el-radio>
+      <el-select class="multiselect" clearable v-model="checkboxList" placeholder="可多选" multiple :multiple-limit="6">
+        <el-option v-for="item in weekList" :key="item.key" :label="item.value" :value="item.key" />
+      </el-select>
     </el-form-item>
 
   </el-form>
 </template>
 
 <script setup>
+import {computed, ref, watch} from "vue";
+
 const emit = defineEmits(['update'])
 const props = defineProps({
   cron: {

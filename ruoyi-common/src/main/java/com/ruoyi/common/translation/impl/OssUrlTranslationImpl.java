@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * OSS翻译实现
  *
- * @author none
+ * @author Lion Li
  */
 @Component
 @AllArgsConstructor

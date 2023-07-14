@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 角色
  *
- * @author none
+ * @author Lion Li
  */
 
 @Data

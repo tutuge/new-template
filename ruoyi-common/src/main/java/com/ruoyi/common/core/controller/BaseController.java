@@ -8,7 +8,7 @@ import com.ruoyi.common.utils.StringUtils;
 /**
  * web层通用数据处理
  *
- * @author none
+ * @author Lion Li
  */
 public class BaseController {
 

@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 翻译处理器
  *
- * @author none
+ * @author Lion Li
  */
 @Slf4j
 public class TranslationHandler extends JsonSerializer<Object> implements ContextualSerializer {

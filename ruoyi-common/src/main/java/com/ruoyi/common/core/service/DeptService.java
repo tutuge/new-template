@@ -3,7 +3,7 @@ package com.ruoyi.common.core.service;
 /**
  * 通用 部门服务
  *
- * @author none
+ * @author Lion Li
  */
 public interface DeptService {
 

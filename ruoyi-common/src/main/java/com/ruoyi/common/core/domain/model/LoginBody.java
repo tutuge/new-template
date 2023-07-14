@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * 用户登录对象
  *
- * @author none
+ * @author Lion Li
  */
 
 @Data
@@ -38,9 +38,5 @@ public class LoginBody {
      * 唯一标识
      */
     private String uuid;
-    /**
-     * 谷歌码
-     */
-    private String googleCode;
 
 }

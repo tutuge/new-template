@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 岗位信息 服务层
  *
- * @author none
+ * @author Lion Li
  */
 public interface ISysPostService {
 

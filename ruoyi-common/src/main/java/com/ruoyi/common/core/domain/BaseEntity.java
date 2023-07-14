@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Entity基类
  *
- * @author none
+ * @author Lion Li
  */
 
 @Data

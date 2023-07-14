@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 登录类型
  *
- * @author none
+ * @author Lion Li
  */
 @Getter
 @AllArgsConstructor

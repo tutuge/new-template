@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
 /**
  * 字典格式化转换处理
  *
- * @author none
+ * @author Lion Li
  */
 @Slf4j
 public class ExcelDictConvert implements Converter<Object> {

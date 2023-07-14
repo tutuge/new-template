@@ -6,9 +6,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 短信登录对象
+ * 邮箱登录对象
  *
- * @author none
+ * @author Lion Li
  */
 
 @Data

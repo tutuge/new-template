@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 /**
  * 参数配置表 sys_config
  *
- * @author none
+ * @author Lion Li
  */
 
 @Data

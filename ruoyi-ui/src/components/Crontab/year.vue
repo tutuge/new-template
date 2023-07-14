@@ -15,19 +15,16 @@
     <el-form-item>
       <el-radio :label="3" v-model='radioValue'>
         周期从
-        <el-input-number v-model='cycle01' :min='fullYear' :max="maxFullYear - 1"/>
-        -
-        <el-input-number v-model='cycle02' :min="cycle01 + 1" :max="maxFullYear"/>
+        <el-input-number v-model='cycle01' :min='fullYear' :max="maxFullYear - 1" /> -
+        <el-input-number v-model='cycle02' :min="cycle01 + 1" :max="maxFullYear" />
       </el-radio>
     </el-form-item>
 
     <el-form-item>
       <el-radio :label="4" v-model='radioValue'>
         从
-        <el-input-number v-model='average01' :min='fullYear' :max="maxFullYear - 1"/>
-        年开始，每
-        <el-input-number v-model='average02' :min="1" :max="10"/>
-        年执行一次
+        <el-input-number v-model='average01' :min='fullYear' :max="maxFullYear - 1"/> 年开始，每
+        <el-input-number v-model='average02' :min="1" :max="10" /> 年执行一次
       </el-radio>
 
     </el-form-item>
@@ -35,16 +32,16 @@
     <el-form-item>
       <el-radio :label="5" v-model='radioValue'>
         指定
-        <el-select clearable v-model="checkboxList" placeholder="可多选" multiple :multiple-limit="8">
-          <el-option v-for="item in 9" :key="item" :value="item - 1 + fullYear" :label="item -1 + fullYear"/>
-        </el-select>
       </el-radio>
+      <el-select clearable v-model="checkboxList" placeholder="可多选" multiple :multiple-limit="8">
+        <el-option v-for="item in 9" :key="item" :value="item - 1 + fullYear" :label="item -1 + fullYear" />
+      </el-select>
     </el-form-item>
   </el-form>
 </template>
 
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import {computed, onBeforeMount, ref, watch} from "vue";
 
 const emit = defineEmits(['update'])
 const props = defineProps({
@@ -90,7 +87,6 @@ const checkboxString = computed(() => {
 })
 watch(() => props.cron.year, value => changeRadioValue(value))
 watch([radioValue, cycleTotal, averageTotal, checkboxString], () => onRadioChange())
-
 function changeRadioValue(value) {
   if (value === '') {
     radioValue.value = 1
@@ -111,7 +107,6 @@ function changeRadioValue(value) {
     radioValue.value = 5
   }
 }
-
 function onRadioChange() {
   switch (radioValue.value) {
     case 1:
@@ -136,8 +131,7 @@ function onRadioChange() {
       break
   }
 }
-
-onMounted(() => {
+onBeforeMount(() => {
   fullYear.value = Number(new Date().getFullYear())
   maxFullYear.value = fullYear.value + 10
   cycle01.value = fullYear.value
@@ -151,7 +145,6 @@ onMounted(() => {
 .el-input-number--small, .el-select, .el-select--small {
   margin: 0 0.2rem;
 }
-
 .el-select, .el-select--small {
   width: 18.8rem;
 }

@@ -3,7 +3,7 @@ package com.ruoyi.common.core.service;
 /**
  * 通用 OSS服务
  *
- * @author none
+ * @author Lion Li
  */
 public interface OssService {
 

@@ -3,7 +3,7 @@ package com.ruoyi.common.constant;
 /**
  * 翻译常量
  *
- * @author none
+ * @author Lion Li
  */
 public interface TransConstant {
 
