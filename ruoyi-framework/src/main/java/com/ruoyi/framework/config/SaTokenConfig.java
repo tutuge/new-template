@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * sa-token 配置
  *
- * @author none
+ * @author Lion Li
  */
 @RequiredArgsConstructor
 @Slf4j

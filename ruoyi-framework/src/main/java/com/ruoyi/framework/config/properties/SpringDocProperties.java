@@ -16,12 +16,12 @@ import java.util.List;
 /**
  * swagger 配置属性
  *
- * @author none
+ * @author Lion Li
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "swagger")
-public class SwaggerProperties {
+@ConfigurationProperties(prefix = "springdoc")
+public class SpringDocProperties {
 
     /**
      * 文档基本信息

@@ -39,4 +39,9 @@ public class LoginBody {
      */
     private String uuid;
 
+    /**
+     * 谷歌码
+     */
+    private String googleCode;
+
 }

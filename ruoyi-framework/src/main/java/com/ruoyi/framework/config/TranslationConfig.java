@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 翻译模块配置类
  *
- * @author none
+ * @author Lion Li
  */
 @Slf4j
 @Configuration

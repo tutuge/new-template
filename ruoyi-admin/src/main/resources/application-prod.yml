@@ -5,69 +5,29 @@ spring.servlet.multipart.location: /ruoyi/server/temp
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    # 动态数据源文档 https://www.kancloud.cn/tracy5546/dynamic-datasource/content
-    dynamic:
-      # 性能分析插件(有性能损耗 不建议生产环境使用)
-      p6spy: true
-      # 设置默认的数据源或者数据源组,默认值即为 master
-      primary: master
-      # 严格模式 匹配不到数据源则报错
-      strict: true
-      datasource:
-        # 主库数据源
-        master:
-          type: ${spring.datasource.type}
-          driverClassName: com.mysql.cj.jdbc.Driver
-          # jdbc 所有参数配置参考 https://lionli.blog.csdn.net/article/details/122018562
-          # rewriteBatchedStatements=true 批处理优化 大幅提升批量插入更新删除性能(对数据库有性能损耗 使用批量操作应考虑性能问题)
-          url: jdbc:mysql://localhost:3306/ry-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true
-          username: root
-          password: root
-        # 从库数据源
-#        slave:
-#          lazy: true
-#          type: ${spring.datasource.type}
-#          driverClassName: com.mysql.cj.jdbc.Driver
-#          url: jdbc:mysql://localhost:3306/ry-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true
-#          username: root
-#          password: zhaochenyu1314
-#        oracle:
-#          type: ${spring.datasource.type}
-#          driverClassName: oracle.jdbc.OracleDriver
-#          url: jdbc:oracle:thin:@//localhost:1521/XE
-#          username: ROOT
-#          password: root
-#          hikari:
-#            connectionTestQuery: SELECT 1 FROM DUAL
-#        postgres:
-#          type: ${spring.datasource.type}
-#          driverClassName: org.postgresql.Driver
-#          url: jdbc:postgresql://localhost:5432/postgres?useUnicode=true&characterEncoding=utf8&useSSL=true&autoReconnect=true&reWriteBatchedInserts=true
-#          username: root
-#          password: root
-#        sqlserver:
-#          type: ${spring.datasource.type}
-#          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#          url: jdbc:sqlserver://localhost:1433;DatabaseName=tempdb;SelectMethod=cursor;encrypt=false;rewriteBatchedStatements=true
-#          username: SA
-#          password: root
-      hikari:
-        # 最大连接池数量
-        maxPoolSize: 20
-        # 最小空闲线程数量
-        minIdle: 10
-        # 配置获取连接等待超时的时间
-        connectionTimeout: 30000
-        # 校验超时时间
-        validationTimeout: 5000
-        # 空闲连接存活最大时间，默认10分钟
-        idleTimeout: 600000
-        # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认30分钟
-        maxLifetime: 1800000
-        # 连接测试query（配置检测连接是否有效）
-        connectionTestQuery: SELECT 1
-        # 多久检查一次连接的活性
-        keepaliveTime: 30000
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # jdbc 所有参数配置参考 https://lionli.blog.csdn.net/article/details/122018562
+    # rewriteBatchedStatements=true 批处理优化 大幅提升批量插入更新删除性能(对数据库有性能损耗 使用批量操作应考虑性能问题)
+    url: jdbc:mysql://localhost:3306/bot-game?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true
+    username: root
+    password: root
+    hikari:
+      # 最大连接池数量
+      maximum-pool-size: 20
+      minimum-idle: 10
+      # 最小空闲线程数量
+      # 配置获取连接等待超时的时间
+      connectionTimeout: 30000
+      # 校验超时时间
+      validationTimeout: 5000
+      # 空闲连接存活最大时间，默认10分钟
+      idleTimeout: 600000
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认30分钟
+      maxLifetime: 1800000
+      # 连接测试query（配置检测连接是否有效）
+      connectionTestQuery: SELECT 1
+      # 多久检查一次连接的活性
+      keepaliveTime: 30000
 
 --- # redis 单机配置(单机与集群只能开启一个另一个需要注释掉)
 spring:
@@ -129,14 +89,29 @@ mail:
   # Socket连接超时值，单位毫秒，缺省值不超时
   connectionTimeout: 0
 
---- # sms 短信
+--- # sms 短信 支持 阿里云 腾讯云 云片 等等各式各样的短信服务商
+# https://wind.kim/doc/start 文档地址 各个厂商可同时使用
 sms:
-  enabled: false
   # 阿里云 dysmsapi.aliyuncs.com
-  # 腾讯云 sms.tencentcloudapi.com
-  endpoint: "dysmsapi.aliyuncs.com"
-  accessKeyId: xxxxxxx
-  accessKeySecret: xxxxxx
-  signName: 测试
-  # 腾讯专用
-  sdkAppId:
+  alibaba:
+    #请求地址 默认为 dysmsapi.aliyuncs.com 如无特殊改变可以不用设置
+    requestUrl: dysmsapi.aliyuncs.com
+    #阿里云的accessKey
+    accessKeyId: xxxxxxx
+    #阿里云的accessKeySecret
+    accessKeySecret: xxxxxxx
+    #短信签名
+    signature: 测试
+  tencent:
+    #请求地址默认为 sms.tencentcloudapi.com 如无特殊改变可不用设置
+    requestUrl: sms.tencentcloudapi.com
+    #腾讯云的accessKey
+    accessKeyId: xxxxxxx
+    #腾讯云的accessKeySecret
+    accessKeySecret: xxxxxxx
+    #短信签名
+    signature: 测试
+    #短信sdkAppId
+    sdkAppId: appid
+    #地域信息默认为 ap-guangzhou 如无特殊改变可不用设置
+    territory: ap-guangzhou

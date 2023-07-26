@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 /**
  * 异步配置
  *
- * @author none
+ * @author Lion Li
  */
 @EnableAsync(proxyTargetClass = true)
 @Configuration

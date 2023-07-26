@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 数据字典信息
  *
- * @author none
+ * @author Lion Li
  */
 @Validated
 @RequiredArgsConstructor

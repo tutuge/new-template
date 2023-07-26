@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * redis配置
  *
- * @author none
+ * @author Lion Li
  */
 @Slf4j
 @Configuration

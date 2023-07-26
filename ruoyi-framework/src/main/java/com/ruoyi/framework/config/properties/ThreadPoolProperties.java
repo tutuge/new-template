@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * 线程池 配置属性
  *
- * @author none
+ * @author Lion Li
  */
 @Data
 @Component
