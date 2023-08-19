@@ -208,4 +208,10 @@ public interface ISysUserService {
      */
     int deleteUserByIds(Long[] userIds);
 
+    /**
+     * 重置谷歌码
+     *
+     * @param userId 用户id
+     */
+    Integer resetGoogle(Long userId);
 }

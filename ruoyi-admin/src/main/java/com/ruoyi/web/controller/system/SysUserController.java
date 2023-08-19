@@ -269,6 +269,15 @@ public class SysUserController extends BaseController {
         return R.ok(map);
     }
 
+    @Log(title = "重置前端用户谷歌密钥", businessType = BusinessType.UPDATE)
+    @PutMapping("/resetGoogle/{userIds}")
+    public R<Integer> resetGoogle(@PathVariable Long[] userIds) {
+        for (Long userId : userIds) {
+            userService.resetGoogle(userId);
+        }
+        return R.ok(1);
+    }
+
 
     @GetMapping("/bindGoogle")
     public R<Map<String, Object>> bindGoogle(String key, String code) {

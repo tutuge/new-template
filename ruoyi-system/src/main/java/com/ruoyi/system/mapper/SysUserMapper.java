@@ -8,6 +8,7 @@ import com.ruoyi.common.annotation.DataPermission;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.mapper.BaseMapperPlus;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -92,4 +93,6 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
      */
     SysUser selectUserById(Long userId);
 
+    @Update("update sys_user set google_key =null where user_id = #{userId}")
+    int resetGoogle(@Param("userId") Long userId);
 }
